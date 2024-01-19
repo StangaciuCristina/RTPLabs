@@ -61,6 +61,9 @@ const osThreadAttr_t defaultTask_attributes = {
 
 /* USER CODE END PV */
 
+/* Used as a loop counter to create a very crude delay. */
+#define mainDELAY_LOOP_COUNT		( 0xffffff )
+
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -68,7 +71,8 @@ static void MX_I2C1_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM11_Init(void);
-void StartDefaultTask(void *argument);
+void MyTask(void *argument);
+
 
 /* USER CODE BEGIN PFP */
 
@@ -136,7 +140,8 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  xTaskCreate(MyTask,"My Task",1000,NULL,1,NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -147,7 +152,8 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  osKernelStart();
+  //osKernelStart();
+  vTaskStartScheduler();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -450,16 +456,20 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
+void MyTask(void *argument)
 {
-  /* init code for USB_HOST */
-  MX_USB_HOST_Init();
+
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
+  volatile uint32_t ul;
   for(;;)
   {
 	HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
-    osDelay(100);
+	for( ul=0; ul<mainDELAY_LOOP_COUNT; ul++)
+	{
+
+	}
+
   }
   /* USER CODE END 5 */
 }
