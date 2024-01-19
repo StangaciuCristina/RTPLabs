@@ -455,7 +455,7 @@ static void MX_GPIO_Init(void)
   * @param  argument: Not used
   * @retval None
   */
-/* USER CODE END Header_StartDefaultTask */
+/* USER CODE END My task */
 void MyTask(void *argument)
 {
 
