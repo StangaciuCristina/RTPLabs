@@ -68,8 +68,8 @@ all: main-build
 main-build: RTPLabs.elf secondary-outputs
 
 # Tool invocations
-RTPLabs.elf RTPLabs.map: $(OBJS) $(USER_OBJS) D:\work\FreeRTOSDiscovery\RTPLabs\RTPLabs\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RTPLabs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\work\FreeRTOSDiscovery\RTPLabs\RTPLabs\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTPLabs.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RTPLabs.elf RTPLabs.map: $(OBJS) $(USER_OBJS) C:\Users\cristina.stangaciu\STM32CubeIDE\RTPLabs\RTPLabs\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RTPLabs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\cristina.stangaciu\STM32CubeIDE\RTPLabs\RTPLabs\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTPLabs.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

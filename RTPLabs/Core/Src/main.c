@@ -71,7 +71,71 @@ static void MX_I2C1_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM11_Init(void);
-void MyTask(void *argument);
+void Task1(void *argument);
+void Task2(void *argument);
+void Task3(void *argument);
+
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END My task */
+void Task1(void *argument)
+{
+
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  volatile uint32_t ul;
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
+	for( ul=0; ul<mainDELAY_LOOP_COUNT; ul++)
+	{
+
+	}
+
+  }
+  /* USER CODE END 5 */
+}
+
+void Task2(void *argument)
+{
+
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  volatile uint32_t ul;
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOD, LD3_Pin);
+	for( ul=0; ul<mainDELAY_LOOP_COUNT; ul++)
+	{
+
+	}
+
+  }
+  /* USER CODE END 5 */
+}
+
+void Task3(void *argument)
+{
+
+  /* USER CODE BEGIN 5 */
+  /* Infinite loop */
+  volatile uint32_t ul;
+  for(;;)
+  {
+	HAL_GPIO_TogglePin(GPIOD, LD5_Pin);
+	for( ul=0; ul<mainDELAY_LOOP_COUNT; ul++)
+	{
+
+	}
+
+  }
+  /* USER CODE END 5 */
+}
 
 
 /* USER CODE BEGIN PFP */
@@ -141,8 +205,9 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-  xTaskCreate(MyTask,"My Task",1000,NULL,1,NULL);
-
+  xTaskCreate(Task1,"Green Led",1000,NULL,1,NULL);
+  xTaskCreate(Task2,"Orange Led",1000,NULL,1,NULL);
+  xTaskCreate(Task3,"Orange Red",1000,NULL,1,NULL);
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -449,30 +514,6 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE END 4 */
 
-/* USER CODE BEGIN Header_StartDefaultTask */
-/**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END My task */
-void MyTask(void *argument)
-{
-
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  volatile uint32_t ul;
-  for(;;)
-  {
-	HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
-	for( ul=0; ul<mainDELAY_LOOP_COUNT; ul++)
-	{
-
-	}
-
-  }
-  /* USER CODE END 5 */
-}
 
 /**
   * @brief  Period elapsed callback in non blocking mode
