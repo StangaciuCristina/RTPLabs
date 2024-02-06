@@ -1,4 +1,4 @@
-../Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c:95:20:USBH_Init	80	static
+../Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c:95:20:USBH_Init	64	static
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c:177:20:USBH_DeInit	16	static
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c:220:27:DeInitStateMachine	24	static
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Src/usbh_core.c:266:20:USBH_RegisterClass	24	static

@@ -56,7 +56,7 @@
 #define configENABLE_MPU                         0
 
 #define configUSE_PREEMPTION                     1
-#define configSUPPORT_STATIC_ALLOCATION          1
+#define configSUPPORT_STATIC_ALLOCATION          0
 #define configSUPPORT_DYNAMIC_ALLOCATION         1
 #define configUSE_IDLE_HOOK                      0
 #define configUSE_TICK_HOOK                      0
@@ -90,11 +90,15 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelete                  1
 #define INCLUDE_vTaskCleanUpResources        0
 #define INCLUDE_vTaskSuspend                 1
-#define INCLUDE_vTaskDelayUntil              1
+#define INCLUDE_vTaskDelayUntil              0
 #define INCLUDE_vTaskDelay                   1
 #define INCLUDE_xTaskGetSchedulerState       1
 
-#define configUSE_QUEUE_SETS				 1
+/* Software timer related configuration options. */
+#define configUSE_TIMERS			1
+#define configTIMER_TASK_PRIORITY		( configMAX_PRIORITIES - 1 ) /* Maximum possible priority. */
+#define configTIMER_QUEUE_LENGTH		2
+#define configTIMER_TASK_STACK_DEPTH		( configMINIMAL_STACK_SIZE * 2 )
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS
