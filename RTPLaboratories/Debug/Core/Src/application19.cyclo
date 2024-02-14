@@ -1,0 +1,5 @@
+../Core/Src/application19.c:26:6:vApplicationGetTimerTaskMemory	1
+../Core/Src/application19.c:50:13:vIntegerGenerator	2
+../Core/Src/application19.c:82:13:Blinky	1
+../Core/Src/application19.c:97:6:EXTI0_IRQHandler	2
+../Core/Src/application19.c:128:6:application19	1
