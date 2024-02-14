@@ -80,8 +80,8 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.2137785029" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.216694503" name="application9.c" rcbsApplicability="disable" resourcePath="Core/Src/application9.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173.1484566594">
-						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173.1484566594" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173"/>
+					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.1489625317" name="application15.c" rcbsApplicability="disable" resourcePath="Core/Src/application15.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173.1015289225">
+						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173.1015289225" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.755144173"/>
 					</fileInfo>
 					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.991724829" name="application9.h" rcbsApplicability="disable" resourcePath="Core/Inc/application9.h" toolsToInvoke=""/>
 					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.2105826951" name="application8.h" rcbsApplicability="disable" resourcePath="Core/Inc/application8.h" toolsToInvoke=""/>
@@ -100,7 +100,7 @@
 					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.616022852" name="application11.h" rcbsApplicability="disable" resourcePath="Core/Inc/application11.h" toolsToInvoke=""/>
 					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1800004452.2003787611" name="application10.h" rcbsApplicability="disable" resourcePath="Core/Inc/application10.h" toolsToInvoke=""/>
 					<sourceEntries>
-						<entry excluding="Src/application15.c|Inc/application15.h|Src/application14.c|Inc/application14.h|Inc/application13.h|Src/application13.c|Src/application7.c|Inc/application7.h|Inc/application12.h|Src/application12.c|Inc/application11.h|Src/application11.c|Inc/application10.h|Src/application10.c|Src/application8.c|Inc/application8.h|Inc/application6.h|Src/application6.c|Inc/application5.h|Src/application5.c|Inc/application4.h|Src/application4.c|Inc/application0.h|Src/application0.c|Src/application3.c|Inc/application3.h|Src/application1.c|Inc/application1.h|Src/application2.c|Inc/application2.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
+						<entry excluding="Src/application9.c|Inc/application9.h|Src/application14.c|Inc/application14.h|Inc/application13.h|Src/application13.c|Src/application7.c|Inc/application7.h|Inc/application12.h|Src/application12.c|Inc/application11.h|Src/application11.c|Inc/application10.h|Src/application10.c|Src/application8.c|Inc/application8.h|Inc/application6.h|Src/application6.c|Inc/application5.h|Src/application5.c|Inc/application4.h|Src/application4.c|Inc/application0.h|Src/application0.c|Src/application3.c|Inc/application3.h|Src/application1.c|Inc/application1.h|Src/application2.c|Inc/application2.h" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="USB_HOST"/>

@@ -1,0 +1,3 @@
+../Core/Src/application7.c:12:6:vTaskFunction	24	static
+../Core/Src/application7.c:39:6:vApplicationIdleHook	8	static
+../Core/Src/application7.c:52:6:application7	16	static

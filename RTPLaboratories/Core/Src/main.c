@@ -20,7 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_host.h"
-#include "application9.h"
+#include "application15.h"
 
 
 /* Private includes ----------------------------------------------------------*/
@@ -134,7 +134,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	application9();
+	application15();
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
