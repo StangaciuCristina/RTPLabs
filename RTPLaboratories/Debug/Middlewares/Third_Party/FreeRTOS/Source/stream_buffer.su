@@ -1,5 +1,4 @@
 ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c:219:23:xStreamBufferGenericCreate	56	static,ignoring_inline_asm
-../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c:283:23:xStreamBufferGenericCreateStatic	72	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c:359:6:vStreamBufferDelete	24	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c:392:12:xStreamBufferReset	40	static,ignoring_inline_asm
 ../Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c:441:12:xStreamBufferSetTriggerLevel	32	static,ignoring_inline_asm

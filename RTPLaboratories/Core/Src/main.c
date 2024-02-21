@@ -17,10 +17,10 @@
 */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <application22.h>
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_host.h"
-#include "application19.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -128,16 +128,15 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	application19();
+	application22();
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
-  osKernelStart();
+  vTaskStartScheduler();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */

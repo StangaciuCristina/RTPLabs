@@ -8,7 +8,7 @@
 #ifndef INC_APPLICATION18_H_
 #define INC_APPLICATION18_H_
 
-void TIM1_UP_TIM10_IRQHandler(void);
+void EXTI0_IRQHandler(void);
 void application18(void);
 
 #endif /* INC_APPLICATION18_H_ */

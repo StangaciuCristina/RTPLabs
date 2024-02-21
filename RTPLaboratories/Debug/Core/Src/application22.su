@@ -1,0 +1,6 @@
+../Core/Src/application22.c:27:13:vEventBitReadingTask	32	static
+../Core/Src/application22.c:72:6:vPrintStringFromDaemonTask	16	static
+../Core/Src/application22.c:78:13:vIntegerGenerator	24	static
+../Core/Src/application22.c:97:6:EXTI0_IRQHandler	16	static
+../Core/Src/application22.c:135:13:vEventBitSettingTask	24	static
+../Core/Src/application22.c:163:6:application22	16	static
