@@ -1,0 +1,4 @@
+../Core/Src/application24.c:31:13:vHandlerTask	24	static
+../Core/Src/application24.c:65:13:vPeriodicTask	16	static
+../Core/Src/application24.c:87:6:EXTI0_IRQHandler	16	static
+../Core/Src/application24.c:116:6:application24	16	static
