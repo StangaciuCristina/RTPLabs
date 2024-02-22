@@ -113,7 +113,7 @@ static void prvBlinkLEDH( void *pvParameters )
 	to the required type. */
 	delay = ( uint32_t * ) pvParameters;
 	//postpone the start of the high priority task, so that the low priority task will run first
-	vTaskDelay( 2*xSlowDownDelay );
+	vTaskDelay( xSlowDownDelay );
 	for( ;; )
 	{
 		/* Print out the string using the newly defined function. */
@@ -144,7 +144,7 @@ static void prvBlinkLEDM( void *pvParameters )
 	to the required type. */
 	delay = ( uint32_t * ) pvParameters;
 	//start the medium priority task between the low and the high priority task
-	vTaskDelay( xSlowDownDelay );
+	vTaskDelay( 2*xSlowDownDelay );
 	for( ;; )
 	{
 		for (i=0; i<20 ;i++)

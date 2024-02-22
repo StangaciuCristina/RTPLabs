@@ -1,0 +1,6 @@
+../Core/Src/application20M.c:28:14:rand	1
+../Core/Src/application20M.c:43:13:prvBlinky	3
+../Core/Src/application20M.c:77:13:prvBlinkLEDL	1
+../Core/Src/application20M.c:106:13:prvBlinkLEDH	1
+../Core/Src/application20M.c:135:13:prvBlinkLEDM	3
+../Core/Src/application20M.c:165:6:application20	2

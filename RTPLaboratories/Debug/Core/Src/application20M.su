@@ -1,0 +1,6 @@
+../Core/Src/application20M.c:28:14:rand	16	static
+../Core/Src/application20M.c:43:13:prvBlinky	24	static
+../Core/Src/application20M.c:77:13:prvBlinkLEDL	24	static
+../Core/Src/application20M.c:106:13:prvBlinkLEDH	24	static
+../Core/Src/application20M.c:135:13:prvBlinkLEDM	32	static
+../Core/Src/application20M.c:165:6:application20	16	static
