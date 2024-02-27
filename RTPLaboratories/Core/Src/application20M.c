@@ -106,7 +106,7 @@ static void prvBlinkLEDL( void *pvParameters )
 static void prvBlinkLEDH( void *pvParameters )
 {
 	uint32_t *delay;
-	const TickType_t xSlowDownDelay = pdMS_TO_TICKS( 500 );
+	const TickType_t xSlowDownDelay = pdMS_TO_TICKS( 50 );
 
 	/* Two instances of this task are created.  The string printed by the task
 	is passed into the task using the task's parameter.  The parameter is cast
@@ -143,15 +143,15 @@ static void prvBlinkLEDM( void *pvParameters )
 	is passed into the task using the task's parameter.  The parameter is cast
 	to the required type. */
 	delay = ( uint32_t * ) pvParameters;
-	//start the medium priority task between the low and the high priority task
-	vTaskDelay( 2*xSlowDownDelay );
+	//start the medium priority task after the high priority task
+	vTaskDelay( xSlowDownDelay + 10 );
 	for( ;; )
 	{
 		for (i=0; i<20 ;i++)
 		{
 			HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 			/* Delay for a period. */
-			for (ul = 0; ul < *delay; ul++)
+			for (ul = 0; ul < (*delay); ul++)
 			{
 				/* This loop is just a very crude delay implementation. */
 			}
@@ -167,15 +167,15 @@ void application20(void)
 	 /* Before a semaphore is used it must be explicitly created.  In this example
 		a mutex type semaphore is created. */
 	 xMutex = xSemaphoreCreateMutex();
-	 //xBinarySemaphore = xSemaphoreCreateBinary();
-	 //xSemaphoreGive( xBinarySemaphore );
+	// xBinarySemaphore = xSemaphoreCreateBinary();
+	// xSemaphoreGive( xBinarySemaphore );
 		/* Check the semaphore was created successfully. */
 	if( xMutex != NULL )
 	//if( xBinarySemaphore != NULL )
 	{
 
 		xTaskCreate( prvBlinkLEDL, "BlinkLedLowPriority", 1000, &delay1, 1, NULL );
-		xTaskCreate( prvBlinkLEDM, "BlinkGreenLedMedium", 1000, &delay1, 2, NULL );
+		xTaskCreate( prvBlinkLEDM, "BlinkGreenLedMedium", 1000, &delay2, 2, NULL );
 		xTaskCreate( prvBlinkLEDH, "BlinkLedHighPriority", 1000, &delay2, 3, NULL );
 	}
 
