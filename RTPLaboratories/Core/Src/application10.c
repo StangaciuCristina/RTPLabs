@@ -32,7 +32,7 @@ static void vSenderTask( void *pvParameters )
 	each instance can use a different value.  Cast the parameter to the required
 	type. */
 	lValueToSend = ( uint16_t * )pvParameters;
-
+	const TickType_t xTicksToWait = pdMS_TO_TICKS( 100UL );
 	/* As per most tasks, this task is implemented within an infinite loop. */
 	for( ;; )
 	{
@@ -47,6 +47,7 @@ static void vSenderTask( void *pvParameters )
 		should the queue already be full.  In this case we don’t specify a block
 		time because there should always be space in the queue. */
 		xQueueSendToBack( xQueue, lValueToSend, 0 );
+		vTaskDelay(xTicksToWait);
 
 
 	}
@@ -57,12 +58,12 @@ static void vReceiverTask( void *pvParameters )
 {
 	/* Declare the variable that will hold the values received from the queue. */
 	uint16_t lReceivedValue;
-	const TickType_t xTicksToWait = pdMS_TO_TICKS( 100UL );
+	const TickType_t xTicksToWait = pdMS_TO_TICKS( 500UL );
 	BaseType_t xStatus;
 	/* This task is also defined within an infinite loop. */
 	for( ;; )
 	{
-		uxQueueMessagesWaiting( xQueue );
+		//uxQueueMessagesWaiting( xQueue );
 
 		/* The first parameter is the queue from which data is to be received.  The
 		queue is created before the scheduler is started, and therefore before this
