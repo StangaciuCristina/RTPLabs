@@ -1,7 +1,0 @@
-../Core/Src/application21.c:25:14:rand	1
-../Core/Src/application21.c:47:13:prvStdioGatekeeperTask	1
-../Core/Src/application21.c:69:6:vApplicationTickHook	2
-../Core/Src/application21.c:89:13:prvPrintTask	1
-../Core/Src/application21.c:121:6:vAssertCalled	2
-../Core/Src/application21.c:150:6:vApplicationMallocFailedHook	1
-../Core/Src/application21.c:166:6:application21	2

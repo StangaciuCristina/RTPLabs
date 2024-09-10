@@ -43,34 +43,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := RTPLaboratories
+BUILD_ARTIFACT_NAME := RTPLaboratoriesReference
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-RTPLaboratories.elf \
+RTPLaboratoriesReference.elf \
 
 MAP_FILES += \
-RTPLaboratories.map \
+RTPLaboratoriesReference.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-RTPLaboratories.list \
+RTPLaboratoriesReference.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: RTPLaboratories.elf secondary-outputs
+main-build: RTPLaboratoriesReference.elf secondary-outputs
 
 # Tool invocations
-RTPLaboratories.elf RTPLaboratories.map: $(OBJS) $(USER_OBJS) D:\work\STM32\RTPLabs\RTPLaboratories\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RTPLaboratories.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\work\STM32\RTPLabs\RTPLaboratories\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTPLaboratories.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RTPLaboratoriesReference.elf RTPLaboratoriesReference.map: $(OBJS) $(USER_OBJS) D:\work\FreeRTOSDiscovery\RTPLabs\RTPLaboratories\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RTPLaboratoriesReference.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\work\FreeRTOSDiscovery\RTPLabs\RTPLaboratories\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RTPLaboratoriesReference.map" -Wl,--gc-sections -static -Wl,--no-warn-execstack -Wl,--no-warn-rwx-segments --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -79,14 +79,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-RTPLaboratories.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "RTPLaboratories.list"
+RTPLaboratoriesReference.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "RTPLaboratoriesReference.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) RTPLaboratories.elf RTPLaboratories.list RTPLaboratories.map default.size.stdout
+	-$(RM) RTPLaboratoriesReference.elf RTPLaboratoriesReference.list RTPLaboratoriesReference.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

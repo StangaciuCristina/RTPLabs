@@ -4,6 +4,11 @@
 /* Used as a loop counter to create a very crude delay. */
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
 
+#define GREEN_LED LD4_Pin
+#define BLUE_LED LD6_Pin
+#define RED_LED LD5_Pin
+#define ORANGE_LED LD3_Pin
+
 void vTask1(void *pvParameters)
 {
 
@@ -13,7 +18,7 @@ void vTask1(void *pvParameters)
 	for (;;)
 	{
 		/* Toggle green led. */
-		HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
+		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 
 		/* Delay for a period. */
 		for (ul = 0; ul < mainDELAY_LOOP_COUNT; ul++)
@@ -35,7 +40,7 @@ void vTask2(void *pvParameters)
 	for (;;)
 	{
 		/* Toggle blue led. */
-		HAL_GPIO_TogglePin(GPIOD, LD6_Pin);
+		HAL_GPIO_TogglePin(GPIOD, BLUE_LED);
 
 		/* Delay for a period. */
 		for (ul = 0; ul < mainDELAY_LOOP_COUNT; ul++)

@@ -1,5 +1,4 @@
-Core/Src/application21.o: ../Core/Src/application21.c \
- ../Core/Inc/application21.h ../Core/Inc/main.h \
+Core/Src/application10.o: ../Core/Src/application10.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -51,8 +50,7 @@ Core/Src/application21.o: ../Core/Src/application21.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/stm32f4xx_it.h
-../Core/Inc/application21.h:
+ ../Core/Inc/application10.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -105,4 +103,4 @@ Core/Src/application21.o: ../Core/Src/application21.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
-../Core/Inc/stm32f4xx_it.h:
+../Core/Inc/application10.h:
