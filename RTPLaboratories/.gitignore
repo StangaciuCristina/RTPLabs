@@ -2,3 +2,7 @@
 *.mk
 *.list
 *.map
+*.o
+*.d
+*.cyclo
+*.mk
