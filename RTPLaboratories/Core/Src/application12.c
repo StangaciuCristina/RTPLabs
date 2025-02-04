@@ -105,7 +105,7 @@ static void vReceiverTask( void *pvParameters )
 uint16_t led1=GREEN_LED;
 uint16_t led2=BLUE_LED;
 
-void application12(void)
+inline void application12(void)
 {
 
 

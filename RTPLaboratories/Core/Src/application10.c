@@ -91,7 +91,7 @@ static void vReceiverTask( void *pvParameters )
 uint16_t led1=GREEN_LED;
 uint16_t led2=BLUE_LED;
 
-void application10(void)
+inline void application10(void)
 {
 
 	/* The queue is created to hold a maximum of 5 short values. */

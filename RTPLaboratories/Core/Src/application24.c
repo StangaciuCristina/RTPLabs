@@ -113,7 +113,7 @@ void EXTI0_IRQHandler(void)
 }
 
 
-void application24(void)
+inline void application24(void)
 {
 	/* Create the 'handler' task, which is the task to which interrupt
 	processing is deferred, and so is the task that will be synchronized

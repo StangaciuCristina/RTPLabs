@@ -81,7 +81,7 @@ uint16_t  Task2LED = BLUE_LED;
 uint16_t  Task3LED = RED_LED;
 
 
-void application8(void)
+inline void application8(void)
 {
 
 	/* Create the first task at priority 2.  This time the task parameter is

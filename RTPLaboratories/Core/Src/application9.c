@@ -50,7 +50,7 @@ void vTask2( void *pvParameters )
 /*-----------------------------------------------------------*/
 
 
-void application9(void)
+inline void application9(void)
 {
 
 	/* Create the first task at priority 1.  This time the task parameter is

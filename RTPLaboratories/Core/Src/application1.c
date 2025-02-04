@@ -52,7 +52,7 @@ void vTask2(void *pvParameters)
 	}
 }
 
-void application1(void)
+inline void application1(void)
 {
 
 

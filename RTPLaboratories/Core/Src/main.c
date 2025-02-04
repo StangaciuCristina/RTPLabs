@@ -17,7 +17,7 @@
 */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include <application10.h>
+#include <application21.h>
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_host.h"
@@ -132,7 +132,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	application10();
+	application21();
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */

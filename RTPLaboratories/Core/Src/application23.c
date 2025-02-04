@@ -237,7 +237,7 @@ EventBits_t uxThisTasksSyncBit;
 }
 /*-----------------------------------------------------------*/
 
-void application23(void)
+inline void application23(void)
 {
 	/* The tasks created in this example block for a random time.  The block
 	time is generated using rand() - seed the random number generator. */

@@ -51,7 +51,7 @@ uint16_t  Task2LED = BLUE_LED;
 uint16_t  Task3LED = RED_LED;
 
 
-void application6(void)
+inline void application6(void)
 {
 
 	/* Create two instances of the continuous processing task, both at priority	1. */

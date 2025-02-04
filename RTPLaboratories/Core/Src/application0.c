@@ -21,7 +21,7 @@ void Led_Test(void *pvParameters)
 	}
 }
 
-void application0(void)
+inline void application0(void)
 {
 	xTaskCreate(Led_Test, "led_Green", configMINIMAL_STACK_SIZE, 0, 2, NULL);
 }

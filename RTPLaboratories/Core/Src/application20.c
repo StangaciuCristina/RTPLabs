@@ -98,7 +98,7 @@ static void prvBlinkLED( void *pvParameters )
 	}
 }
 
-void application20(void)
+inline void application20(void)
 {
 	 /* Before a semaphore is used it must be explicitly created.  In this example
 		a mutex type semaphore is created. */

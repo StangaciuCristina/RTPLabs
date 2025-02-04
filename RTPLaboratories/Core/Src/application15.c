@@ -77,7 +77,7 @@ TickType_t xTimeNow;
 /*-----------------------------------------------------------*/
 
 
-void application15(void)
+inline void application15(void)
 {
 
 		/* Create the one shot timer, storing the handle to the created timer in

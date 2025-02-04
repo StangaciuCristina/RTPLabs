@@ -163,7 +163,7 @@ void vApplicationMallocFailedHook( void )
 }
 /*-----------------------------------------------------------*/
 
-void application21(void)
+inline void application21(void)
 {
 	/* Before a queue is used it must be explicitly created.  The queue is created
 	to hold a maximum of 5 character pointers. */

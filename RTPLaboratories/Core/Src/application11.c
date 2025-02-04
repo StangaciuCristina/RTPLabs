@@ -111,7 +111,7 @@ static void vReceiverTask( void *pvParameters )
 }
 
 
-void application11(void)
+inline void application11(void)
 {
 
     /* The queue is created to hold a maximum of 3 structures of type Data_t. */

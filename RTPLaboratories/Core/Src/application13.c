@@ -43,7 +43,7 @@ static TickType_t xTimeNow;
 
 
 
-void application13(void)
+inline void application13(void)
 {
 
 	TimerHandle_t xAutoReloadTimer, xOneShotTimer;

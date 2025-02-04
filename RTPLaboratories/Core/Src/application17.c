@@ -80,7 +80,7 @@ const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 	}
 }
 
-void application17(void)
+inline void application17(void)
 {
 	/* Before a semaphore is used it must be explicitly created.  In this
 	example a counting semaphore is created.  The semaphore is created to have a

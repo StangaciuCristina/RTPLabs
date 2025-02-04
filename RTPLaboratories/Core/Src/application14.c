@@ -67,7 +67,7 @@ uint32_t ulExecutionCount;
 
 
 
-void application14(void)
+inline void application14(void)
 {
 
 	BaseType_t xTimer1Started, xTimer2Started;

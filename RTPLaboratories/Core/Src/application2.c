@@ -38,7 +38,7 @@ uint16_t  Task1LED = GREEN_LED;
 uint16_t  Task2LED = BLUE_LED;
 
 
-void application2(void)
+inline void application2(void)
 {
 
 	/* Create one of the two tasks. */

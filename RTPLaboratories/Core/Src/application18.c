@@ -101,7 +101,7 @@ const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 }
 
 
-void application18(void)
+inline void application18(void)
 {
 	const UBaseType_t ulPeriodicTaskPriority = configTIMER_TASK_PRIORITY - 1;
 

@@ -160,7 +160,7 @@ const TickType_t xDelay200ms = pdMS_TO_TICKS( 200UL );
 /*-----------------------------------------------------------*/
 
 
-void application22(void)
+inline void application22(void)
 {
 	/* Before an event group can be used it must first be created. */
 	xEventGroup = xEventGroupCreate();

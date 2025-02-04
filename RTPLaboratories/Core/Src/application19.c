@@ -125,7 +125,7 @@ void EXTI0_IRQHandler(void)
 
 
 
-void application19(void)
+inline void application19(void)
 {
 	/* Before a queue can be used it must first be created.  Create both queues
 	used by this example.  One queue can hold variables of type uint32_t,
