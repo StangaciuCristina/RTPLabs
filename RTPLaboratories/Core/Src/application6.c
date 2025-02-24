@@ -55,9 +55,9 @@ inline void application6(void)
 {
 
 	/* Create two instances of the continuous processing task, both at priority	1. */
-		xTaskCreate( vContinuousProcessingTask, "Task 1", 1000, (void*)&Task1LED, 1, NULL );
-		xTaskCreate( vContinuousProcessingTask, "Task 2", 1000, (void*)&Task2LED, 1, NULL );
+		xTaskCreate( vContinuousProcessingTask, "Task 1", 100, (void*)&Task1LED, 1, NULL );
+		xTaskCreate( vContinuousProcessingTask, "Task 2", 100, (void*)&Task2LED, 1, NULL );
 	/* Create one instance of the periodic task at priority 2. */
-		xTaskCreate( vPeriodicTask, "Task 3", 1000, (void*)&Task3LED, 2, NULL );
+		xTaskCreate( vPeriodicTask, "Task 3", 100, (void*)&Task3LED, 2, NULL );
 
 }
