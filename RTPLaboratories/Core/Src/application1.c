@@ -55,16 +55,19 @@ void vTask2(void *pvParameters)
 inline void application1(void)
 {
 
-
+	BaseType_t xReturned1, xReturned2;
 	/* Create one of the two tasks. */
-	xTaskCreate(vTask1,		/* Pointer to the function that implements the task. */
+	xReturned1=xTaskCreate(vTask1,		/* Pointer to the function that implements the task. */
 		"Task 1",	/* Text name for the task.  This is to facilitate debugging only. */
-		1000,		/* Stack depth - most small microcontrollers will use much less stack than this. */
+		128,		/* Stack depth - most small microcontrollers will use a low value. */
 		NULL,		/* We are not using the task parameter. */
 		1,			/* This task will run at priority 1. */
 		NULL);		/* We are not using the task handle. */
 
-	/* Create the other task in exactly the same way. */
-	xTaskCreate(vTask2, "Task 2", 1000, NULL, 1, NULL);
+	/* Create the other task in a similar way. */
+	xReturned2=xTaskCreate(vTask2, "Task 2", 128, NULL, 1, NULL);
+	if (( xReturned1 == pdPASS )&&( xReturned2 == pdPASS ))
+			  vTaskStartScheduler();
+
 
 }

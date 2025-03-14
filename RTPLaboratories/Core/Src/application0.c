@@ -23,5 +23,8 @@ void Led_Test(void *pvParameters)
 
 inline void application0(void)
 {
-	xTaskCreate(Led_Test, "led_Green", configMINIMAL_STACK_SIZE, 0, 2, NULL);
+	BaseType_t xReturned;
+	 xReturned = xTaskCreate(Led_Test, "led_Green", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
+	if( xReturned == pdPASS )
+	 		  vTaskStartScheduler();
 }

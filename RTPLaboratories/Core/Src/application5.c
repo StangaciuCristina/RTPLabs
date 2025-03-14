@@ -14,7 +14,6 @@ void vTaskFunction(void *pvParameters)
 	uint16_t *LED;
 	TickType_t xLastWakeTime;
 	const TickType_t xDelay250ms = pdMS_TO_TICKS( 250UL );
-
 	LED = (uint16_t  *)pvParameters;
 	/* The xLastWakeTime variable needs to be initialized with the current tick
 	count.  Note that this is the only time we access this variable.  From this
@@ -46,17 +45,20 @@ uint16_t  Task2LED = BLUE_LED;
 inline void application5(void)
 {
 
+	BaseType_t xReturned1,xReturned2;
 	/* Create one of the two tasks. */
-	xTaskCreate(vTaskFunction,			/* Pointer to the function that implements the task. */
-		"Task 1",				/* Text name for the task.  This is to facilitate debugging only. */
-		1000,					/* Stack depth - most small microcontrollers will use much less stack than this. */
-		(void*)&Task1LED,	    /* Pass an identifier for the LED to be toggled. */
-		1,						/* This task will run at priority 1. */
-		NULL);					/* We are not using the task handle. */
+	xReturned1=xTaskCreate(	vTaskFunction,			/* Pointer to the function that implements the task. */
+					"Task 1",				/* Text name for the task.  This is to facilitate debugging only. */
+					128,					/* Stack depth - most small microcontrollers will use much less stack than this. */
+					(void*)&Task1LED,	    /* Pass an identifier for the LED to be toggled. */
+					1,						/* This task will run at priority 1. */
+					NULL );					/* We are not using the task handle. */
 
 	/* Create the other task in exactly the same way.  Note this time that we
 	are creating the SAME task, but passing in a different parameter.  We are
 	creating two instances of a single task implementation. */
-	xTaskCreate(vTaskFunction, "Task 2", 1000, (void*)&Task2LED, 2, NULL);
+	xReturned2=xTaskCreate( vTaskFunction, "Task 2", 128, (void*)&Task2LED, 2, NULL );
+	if (( xReturned1 == pdPASS )&&( xReturned2 == pdPASS ))
+					  vTaskStartScheduler();
 
 }
