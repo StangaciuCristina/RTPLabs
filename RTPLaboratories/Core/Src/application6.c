@@ -53,11 +53,12 @@ uint16_t  Task3LED = RED_LED;
 
 inline void application6(void)
 {
-
+	BaseType_t xReturned1,xReturned2,xReturned3;
 	/* Create two instances of the continuous processing task, both at priority	1. */
-		xTaskCreate( vContinuousProcessingTask, "Task 1", 100, (void*)&Task1LED, 1, NULL );
-		xTaskCreate( vContinuousProcessingTask, "Task 2", 100, (void*)&Task2LED, 1, NULL );
+	xReturned1=xTaskCreate( vContinuousProcessingTask, "Task 1", 128, (void*)&Task1LED, 1, NULL );
+	xReturned2=xTaskCreate( vContinuousProcessingTask, "Task 2", 128, (void*)&Task2LED, 1, NULL );
 	/* Create one instance of the periodic task at priority 2. */
-		xTaskCreate( vPeriodicTask, "Task 3", 100, (void*)&Task3LED, 2, NULL );
-
+	xReturned3=xTaskCreate( vPeriodicTask, "Task 3", 128, (void*)&Task3LED, 2, NULL );
+	if (( xReturned1 == pdPASS )&&( xReturned2 == pdPASS )&&( xReturned3 == pdPASS ))
+				  vTaskStartScheduler();
 }

@@ -6,3 +6,4 @@
 *.d
 *.cyclo
 *.mk
+*.su
