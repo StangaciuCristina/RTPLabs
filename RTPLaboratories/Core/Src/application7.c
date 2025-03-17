@@ -53,11 +53,14 @@ uint16_t  Task3LED = RED_LED;
 inline void application7(void)
 {
 
+	BaseType_t xReturned1, xReturned2;
 	/* Create the first task at priority 1... */
-		xTaskCreate( vTaskFunction, "Task 1", 1000, (void*)&Task1LED, 1, NULL );
+	xReturned1 = xTaskCreate( vTaskFunction, "Task 1", 128, (void*)&Task1LED, 1, NULL );
 	/* ... and the second task at priority 2.  The priority is the second to
 			last parameter. */
-		xTaskCreate( vTaskFunction, "Task 2", 1000, (void*)&Task2LED, 2, NULL );
+	xReturned2 = xTaskCreate( vTaskFunction, "Task 2", 128, (void*)&Task2LED, 2, NULL );
+	if ((xReturned1==pdPASS)&&(xReturned2==pdPASS))
+		vTaskStartScheduler();
 
 
 }

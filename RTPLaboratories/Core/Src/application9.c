@@ -26,7 +26,7 @@ const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );
 		/* Create task 2 at a higher priority.  Again the task parameter is not
 		used so is set to NULL - BUT this time we want to obtain a handle to the
 		task so pass in the address of the xTask2Handle variable. */
-		xTaskCreate( vTask2, "Task 2", 1000, NULL, 2, &xTask2Handle );
+		xTaskCreate( vTask2, "Task 2", 128, NULL, 2, &xTask2Handle );
 			 /* The task handle is the last parameter ^^^^^^^^^^^^^ */
 
 		/* Task2 has/had the higher priority, so for Task1 to reach here Task2
@@ -52,11 +52,13 @@ void vTask2( void *pvParameters )
 
 inline void application9(void)
 {
-
+	BaseType_t xReturned1;
 	/* Create the first task at priority 1.  This time the task parameter is
 	not used and is set to NULL.  The task handle is also not used so likewise
 	is also set to NULL. */
-	xTaskCreate( vTask1, "Task 1", 1000, NULL, 1, NULL );
+	xReturned1=xTaskCreate( vTask1, "Task 1", 128, NULL, 1, NULL );
     /* The task is created at priority 1 ^. */
+	if(xReturned1==pdPASS)
+		vTaskStartScheduler();
 
 }
