@@ -96,21 +96,19 @@ inline void application10(void)
 
 	/* The queue is created to hold a maximum of 5 short values. */
 	    xQueue = xQueueCreate( 5, sizeof( int16_t ) );
-
+	    BaseType_t xReturned1, xReturned2, xReturned3;
 		if( xQueue != NULL )
 		{
-			/* Create two instances of the task that will write to the queue.  The
-			parameter is used to pass the value that the task should write to the queue,
-			so one task will continuously write 100 to the queue while the other task
-			will continuously write 200 to the queue.  Both tasks are created at
+			/* Create two instances of the task that will write to the queue.  Both tasks are created at
 			priority 1. */
-			xTaskCreate( vSenderTask, "Sender1", 1000, ( void * ) &led1, 1, NULL );
-			xTaskCreate( vSenderTask, "Sender2", 1000, ( void * ) &led2, 1, NULL );
+			xReturned1 = xTaskCreate( vSenderTask, "Sender1", 128, ( void * ) &led1, 1, NULL );
+			xReturned2 = xTaskCreate( vSenderTask, "Sender2", 128, ( void * ) &led2, 1, NULL );
 
 			/* Create the task that will read from the queue.  The task is created with
 			priority 2, so above the priority of the sender tasks. */
-			xTaskCreate( vReceiverTask, "Receiver", 1000, NULL, 2, NULL );
+			xReturned3 = xTaskCreate( vReceiverTask, "Receiver", 128, NULL, 2, NULL );
 		}
-
+		if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+			vTaskStartScheduler();
 
 }

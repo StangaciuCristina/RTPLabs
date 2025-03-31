@@ -78,6 +78,7 @@ static void vReceiverTask( void *pvParameters )
 	/* Declare the variable that will hold the values received from the queue. */
 	Data_t xReceivedStructure;
 	BaseType_t xStatus;
+	const TickType_t xTicksToWait = pdMS_TO_TICKS( 500UL );
 	/* This task is also defined within an infinite loop. */
 	for( ;; )
 	{
@@ -106,6 +107,7 @@ static void vReceiverTask( void *pvParameters )
 				HAL_GPIO_TogglePin(GPIOD, xReceivedStructure.ucValue);
 
 		}
+		vTaskDelay(xTicksToWait);
 
 	}
 }
@@ -116,21 +118,19 @@ inline void application11(void)
 
     /* The queue is created to hold a maximum of 3 structures of type Data_t. */
     xQueue = xQueueCreate( 3, sizeof( Data_t ) );
-
+    BaseType_t xReturned1, xReturned2, xReturned3;
 		if( xQueue != NULL )
 		{
-			/* Create two instances of the task that will write to the queue.  The
-			parameter is used to pass the value that the task should write to the queue,
-			so one task will continuously write 100 to the queue while the other task
-			will continuously write 200 to the queue.  Both tasks are created at
-			priority 1. */
-			xTaskCreate( vSenderTask, "Sender1", 1000, ( void * ) &( xStructsToSend[ 0 ]), 2, NULL );
-			xTaskCreate( vSenderTask, "Sender2", 1000, ( void * ) &( xStructsToSend[ 1 ]), 2, NULL );
+			/* Create two instances of the task that will write to the queue.  Both tasks are created at
+			priority 2. */
+			xReturned1 = xTaskCreate( vSenderTask, "Sender1", 128, ( void * ) &( xStructsToSend[ 0 ]), 2, NULL );
+			xReturned2 = xTaskCreate( vSenderTask, "Sender2", 128, ( void * ) &( xStructsToSend[ 1 ]), 2, NULL );
 
 			/* Create the task that will read from the queue.  The task is created with
-			priority 2, so above the priority of the sender tasks. */
-			xTaskCreate( vReceiverTask, "Receiver", 1000, NULL, 1, NULL );
+			priority 1, so below the priority of the sender tasks. */
+			xReturned3 = xTaskCreate( vReceiverTask, "Receiver", 128, NULL, 1, NULL );
 		}
-
+		if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+					vTaskStartScheduler();
 
 }

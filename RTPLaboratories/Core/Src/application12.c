@@ -108,12 +108,12 @@ uint16_t led2=BLUE_LED;
 inline void application12(void)
 {
 
-
-	/* Create the two queues.  Each queue sends character pointers.  The
+	BaseType_t xReturned1, xReturned2, xReturned3;
+	/* Create the two queues. The
 	priority of the receiving task is above the priority of the sending tasks so
 	the queues will never have more than one item in them at any one time. */
-    xQueue1 = xQueueCreate( 1, sizeof( char * ) );
-	xQueue2 = xQueueCreate( 1, sizeof( char * ) );
+    xQueue1 = xQueueCreate( 1, sizeof( uint16_t * ) );
+	xQueue2 = xQueueCreate( 1, sizeof( uint16_t * ) );
 
 	/* Create the queue set.  There are two queues both of which can contain
 	1 item, so the maximum number of queue handle the queue set will ever have
@@ -125,11 +125,14 @@ inline void application12(void)
 	xQueueAddToSet( xQueue2, xQueueSet );
 
 	/* Create the tasks that send to the queues. */
-	xTaskCreate( vSenderTask1, "Sender1", 1000, NULL, 1, NULL );
-	xTaskCreate( vSenderTask2, "Sender2", 1000, NULL, 1, NULL );
+	xReturned1 = xTaskCreate( vSenderTask1, "Sender1", 128, NULL, 1, NULL );
+	xReturned2 = xTaskCreate( vSenderTask2, "Sender2", 128, NULL, 1, NULL );
 
 	/* Create the receiver task. */
-	xTaskCreate( vReceiverTask, "Receiver", 1000, NULL, 2, NULL );
+	xReturned3 = xTaskCreate( vReceiverTask, "Receiver", 128, NULL, 2, NULL );
+
+	if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+						vTaskStartScheduler();
 
 
 }
