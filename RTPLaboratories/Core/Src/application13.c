@@ -11,30 +11,30 @@
 #define ORANGE_LED LD3_Pin
 
 /* The periods assigned to the one-shot and auto-reload timers respectively. */
-#define mainONE_SHOT_TIMER_PERIOD		( pdMS_TO_TICKS( 3333UL ) )
-#define mainAUTO_RELOAD_TIMER_PERIOD	( pdMS_TO_TICKS( 500UL ) )
+#define mainONE_SHOT_TIMER_PERIOD		( pdMS_TO_TICKS( 333UL ) )
+#define mainAUTO_RELOAD_TIMER_PERIOD	( pdMS_TO_TICKS( 50UL ) )
 
 
 static void prvOneShotTimerCallback( TimerHandle_t xTimer )
 {
-static TickType_t xTimeNow;
+//static TickType_t xTimeNow;
 
 	/* Obtain the current tick count. */
-	xTimeNow = xTaskGetTickCount();
+	//xTimeNow = xTaskGetTickCount();
 
-	//toggle led
+	//the LED will be only turned on, as this function will execute only once
 	HAL_GPIO_TogglePin(GPIOD, RED_LED);
 }
 /*-----------------------------------------------------------*/
 
 static void prvAutoReloadTimerCallback( TimerHandle_t xTimer )
 {
-static TickType_t xTimeNow;
+//static TickType_t xTimeNow;
 
 	/* Obtain the current tick count. */
-	xTimeNow = xTaskGetTickCount();
+	//xTimeNow = xTaskGetTickCount();
 
-	//toggle led
+	//toggle LED
 	HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 }
 /*-----------------------------------------------------------*/
@@ -81,6 +81,8 @@ inline void application13(void)
 			the scheduler has been started.  Check both calls to xTimerStart()
 			passed. */
 		}
+		if((xTimer1Started==pdPASS)&&(xTimer2Started==pdPASS))
+			vTaskStartScheduler();
 
 
 }

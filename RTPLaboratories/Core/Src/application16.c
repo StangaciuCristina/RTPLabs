@@ -1,6 +1,5 @@
 #include "main.h"
 #include "cmsis_os.h"
-#include "timers.h"
 #include "semphr.h"
 #include "application16.h"
 #include "stm32f4xx_it.h"
@@ -62,13 +61,13 @@ static void vHandlerTask( void *pvParameters )
 
 static void vPeriodicTask( void *pvParameters )
 {
-const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
+const TickType_t xDelay = pdMS_TO_TICKS( 50UL );
 
 	/* As per most tasks, this task is implemented within an infinite loop. */
 	for( ;; )
 	{
 
-		vTaskDelay( xDelay500ms );
+		vTaskDelay( xDelay );
 
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 	}
@@ -76,6 +75,7 @@ const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 
 inline void application16(void)
 {
+	BaseType_t xReturned1, xReturned2;
 	/* Before a semaphore is used it must be explicitly created.  In this
 	example	a binary semaphore is created. */
 	xBinarySemaphore = xSemaphoreCreateBinary();
@@ -88,14 +88,14 @@ inline void application16(void)
 		with the interrupt.  The handler task is created with a high priority to
 		ensure it runs immediately after the interrupt exits.  In this case a
 		priority of 3 is chosen. */
-		xTaskCreate( vHandlerTask, "Handler", 1000, NULL, 3, NULL );
+		xReturned1=xTaskCreate( vHandlerTask, "Handler", 128, NULL, 3, NULL );
 
 		/* Create the task that will periodically generate a software interrupt.
 		This is created with a priority below the handler task to ensure it will
 		get preempted each time the handler task exits the Blocked state. */
-		xTaskCreate( vPeriodicTask, "Periodic", 1000, NULL, 1, NULL );
+		xReturned2=xTaskCreate( vPeriodicTask, "Periodic", 128, NULL, 1, NULL );
 
 	}
-
-
+	if ((xReturned1==pdPASS)&&(xReturned2==pdPASS))
+		vTaskStartScheduler();
 }

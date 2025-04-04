@@ -88,13 +88,13 @@ void EXTI0_IRQHandler(void)
 
 static void vPeriodicTask( void *pvParameters )
 {
-const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
+const TickType_t xDelay = pdMS_TO_TICKS( 50UL );
 
 	/* As per most tasks, this task is implemented within an infinite loop. */
 	for( ;; )
 	{
 
-		vTaskDelay( xDelay500ms );
+		vTaskDelay( xDelay );
 
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 	}
@@ -103,9 +103,12 @@ const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 
 inline void application18(void)
 {
+	BaseType_t xReturned;
 	const UBaseType_t ulPeriodicTaskPriority = configTIMER_TASK_PRIORITY - 1;
 
 	/* Create the task that will periodically generate a software interrupt. */
-	xTaskCreate( vPeriodicTask, "Periodic", 1000, NULL, ulPeriodicTaskPriority, NULL );
+	xReturned=xTaskCreate( vPeriodicTask, "Periodic", 128, NULL, ulPeriodicTaskPriority, NULL );
+	if(xReturned==pdPASS)
+		vTaskStartScheduler();
 
 }

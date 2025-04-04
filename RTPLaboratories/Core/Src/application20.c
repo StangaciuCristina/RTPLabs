@@ -100,20 +100,23 @@ static void prvBlinkLED( void *pvParameters )
 
 inline void application20(void)
 {
-	 /* Before a semaphore is used it must be explicitly created.  In this example
+	BaseType_t xReturned1, xReturned2;
+	/* Before a semaphore is used it must be explicitly created.  In this example
 		a mutex type semaphore is created. */
-	 xMutex = xSemaphoreCreateMutex();
+	xMutex = xSemaphoreCreateMutex();
 
-		/* Check the semaphore was created successfully. */
-		if( xMutex != NULL )
-		{
-			/* Create two instances of the tasks that attempt to write stdout.  The
-			string they attempt to write is passed into the task as the task's
-			parameter.  The tasks are created at different priorities so some
-			pre-emption will occur. */
-			xTaskCreate( prvBlinkLED, "Print1", 1000, &delay1, 1, NULL );
-			xTaskCreate( prvBlinkLED, "Print2", 1000, &delay2, 2, NULL );
-		}
+	/* Check the semaphore was created successfully. */
+	if( xMutex != NULL )
+	{
+		/* Create two instances of the tasks that attempt to write stdout.  The
+		string they attempt to write is passed into the task as the task's
+		parameter.  The tasks are created at different priorities so some
+		pre-emption will occur. */
+		xReturned1=xTaskCreate( prvBlinkLED, "Print1", 128, &delay1, 1, NULL );
+		xReturned2=xTaskCreate( prvBlinkLED, "Print2", 128, &delay2, 2, NULL );
+	}
+	if ((xReturned1==pdPASS)&&(xReturned2==pdPASS))
+				vTaskStartScheduler();
 
 
 }

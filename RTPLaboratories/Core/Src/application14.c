@@ -11,8 +11,8 @@
 #define ORANGE_LED LD3_Pin
 
 /* The periods assigned to the one-shot and auto-reload timers respectively. */
-#define mainONE_SHOT_TIMER_PERIOD		( pdMS_TO_TICKS( 3333UL ) )
-#define mainAUTO_RELOAD_TIMER_PERIOD	( pdMS_TO_TICKS( 500UL ) )
+#define mainONE_SHOT_TIMER_PERIOD		( pdMS_TO_TICKS( 333UL ) )
+#define mainAUTO_RELOAD_TIMER_PERIOD	( pdMS_TO_TICKS( 50UL ) )
 
 /* The timer handles are used inside the callback function so this time are
 given file scope. */
@@ -20,7 +20,7 @@ static TimerHandle_t xAutoReloadTimer, xOneShotTimer;
 
 static void prvTimerCallback( TimerHandle_t xTimer )
 {
-TickType_t xTimeNow;
+//TickType_t xTimeNow;
 uint32_t ulExecutionCount;
 
 	/* The count of the number of times this software timer has expired is
@@ -31,7 +31,7 @@ uint32_t ulExecutionCount;
 	vTimerSetTimerID( xTimer, ( void * ) ulExecutionCount );
 
 	/* Obtain the current tick count. */
-	xTimeNow = xTaskGetTickCount();
+	//xTimeNow = xTaskGetTickCount();
 
     /* The handle of the one-shot timer was stored in xOneShotTimer when the
 	timer was created.  Compare the handle passed into this function with
@@ -50,7 +50,7 @@ uint32_t ulExecutionCount;
 		//toggle led
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 
-		if( ulExecutionCount == 10 )
+		if( ulExecutionCount == 100 )
 		{
 			/* Stop the auto-reload timer after it has executed 5 times.  This
 			callback function executes in the context of the RTOS daemon task so
@@ -104,5 +104,7 @@ inline void application14(void)
 			the scheduler has been started.  Check both calls to xTimerStart()
 			passed. */
 		}
+		if((xTimer1Started==pdPASS)&&(xTimer2Started==pdPASS))
+					vTaskStartScheduler();
 
 }

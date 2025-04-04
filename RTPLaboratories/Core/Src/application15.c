@@ -11,7 +11,7 @@
 #define ORANGE_LED LD3_Pin
 
 /* The periods assigned to the one-shot timer. */
-#define mainBACKLIGHT_TIMER_PERIOD		( pdMS_TO_TICKS( 5000UL ) )
+#define mainBACKLIGHT_TIMER_PERIOD		( pdMS_TO_TICKS( 500UL ) )
 
 
 
@@ -20,7 +20,7 @@ static TimerHandle_t xBacklightTimer = NULL;
 
 static void prvBacklightTimerCallback( TimerHandle_t xTimer )
 {
-	TickType_t xTimeNow = xTaskGetTickCount();
+	//TickType_t xTimeNow = xTaskGetTickCount();
 
 	/* Turned off backlight - in this case the green led */
 	HAL_GPIO_WritePin(GPIOD, GREEN_LED, GPIO_PIN_RESET);
@@ -31,7 +31,7 @@ static void vKeyHitTask( void *pvParameters )
 {
 const TickType_t xShortDelay = pdMS_TO_TICKS( 50 );
 
-TickType_t xTimeNow;
+//TickType_t xTimeNow;
 
 	/* This example uses key presses, so prevent key presses being used to end
 	the application. */
@@ -53,7 +53,7 @@ TickType_t xTimeNow;
 		if(  state != 0 )
 		{
 			/* Record the time at which the key press was noted. */
-			xTimeNow = xTaskGetTickCount();
+			//xTimeNow = xTaskGetTickCount();
 
 			/* The backlight was off so turn it on and print the time at
 				which it was turned on. */
@@ -80,6 +80,7 @@ TickType_t xTimeNow;
 inline void application15(void)
 {
 
+		BaseType_t xTimerStarted;
 		/* Create the one shot timer, storing the handle to the created timer in
 		xOneShotTimer. */
 		xBacklightTimer = xTimerCreate( "Backlight",				/* Text name for the timer - not used by FreeRTOS. */
@@ -97,6 +98,9 @@ inline void application15(void)
 		xTaskCreate( vKeyHitTask, "Key poll", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
 
 		/* Start the timer. */
-		xTimerStart( xBacklightTimer, 0 );
+		xTimerStarted=xTimerStart( xBacklightTimer, 0 );
+
+		if (xTimerStarted==pdPASS)
+			vTaskStartScheduler();
 
 }

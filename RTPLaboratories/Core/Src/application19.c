@@ -50,7 +50,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 static void vIntegerGenerator( void *pvParameters )
 {
 TickType_t xLastExecutionTime;
-const TickType_t xDelay200ms = pdMS_TO_TICKS( 200UL ), xDontBlock = 0;
+const TickType_t xDelay = pdMS_TO_TICKS( 20UL ), xDontBlock = 0;
 uint32_t ulValueToSend = 0;
 BaseType_t i;
 
@@ -61,7 +61,7 @@ BaseType_t i;
 	{
 		/* This is a periodic task.  Block until it is time to run again.
 		The task will execute every 200ms. */
-		vTaskDelayUntil( &xLastExecutionTime, xDelay200ms );
+		vTaskDelayUntil( &xLastExecutionTime, xDelay );
 
 		/* Send five numbers to the queue, each value one higher than the
 		previous value.  The numbers are read from the queue by the interrupt
@@ -127,6 +127,7 @@ void EXTI0_IRQHandler(void)
 
 inline void application19(void)
 {
+	BaseType_t xReturned1, xReturned2;
 	/* Before a queue can be used it must first be created.  Create both queues
 	used by this example.  One queue can hold variables of type uint32_t,
 	the other queue can hold variables of type char*.  Both queues can hold a
@@ -137,10 +138,11 @@ inline void application19(void)
 
 	/* Create the task that uses a queue to pass integers to the interrupt
 	service	routine.  The task is created at priority 1. */
-	xTaskCreate( vIntegerGenerator, "IntGen", 1000, NULL, 1, NULL );
+	xReturned1=xTaskCreate( vIntegerGenerator, "IntGen", 128, NULL, 1, NULL );
 
 	/* Create the task that prints out the strings sent to it from the interrupt
 	service routine.  The task is created at the higher priority of 2. */
-	xTaskCreate( Blinky, "String", 1000, NULL, 2, NULL );
-
+	xReturned2=xTaskCreate( Blinky, "String", 128, NULL, 2, NULL );
+	if ((xReturned1==pdPASS)&&(xReturned2==pdPASS))
+			vTaskStartScheduler();
 }
