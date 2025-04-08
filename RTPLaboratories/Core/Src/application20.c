@@ -76,9 +76,7 @@ static void prvBlinkLED( void *pvParameters )
 	uint32_t *delay;
 	const TickType_t xSlowDownDelay = pdMS_TO_TICKS( 5UL );
 
-	/* Two instances of this task are created.  The string printed by the task
-	is passed into the task using the task's parameter.  The parameter is cast
-	to the required type. */
+	/* Two instances of this task are created. */
 	delay = ( uint32_t * ) pvParameters;
 
 	for( ;; )
@@ -86,11 +84,7 @@ static void prvBlinkLED( void *pvParameters )
 		/* Print out the string using the newly defined function. */
 		prvBlinky( delay );
 
-		/* Wait a pseudo random time.  Note that rand() is not necessarily
-		re-entrant, but in this case it does not really matter as the code does
-		not care what value is returned.  In a more secure application a version
-		of rand() that is known to be re-entrant should be used - or calls to
-		rand() should be protected using a critical section. */
+		/* Wait a pseudo random time.*/
 		vTaskDelay( rand() % xMaxBlockTimeTicks );
 
 		/* Just to ensure the scrolling is not too fast! */
@@ -108,7 +102,7 @@ inline void application20(void)
 	/* Check the semaphore was created successfully. */
 	if( xMutex != NULL )
 	{
-		/* Create two instances of the tasks that attempt to write stdout.  The
+		/* Create two instances of the tasks that attempt to blink the LED with different frequencies  The
 		string they attempt to write is passed into the task as the task's
 		parameter.  The tasks are created at different priorities so some
 		pre-emption will occur. */

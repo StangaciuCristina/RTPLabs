@@ -8,6 +8,6 @@
 #ifndef INC_APPLICATION20M_H_
 #define INC_APPLICATION20M_H_
 
-void application20(void);
+void application20M(void);
 
 #endif /* INC_APPLICATION20M_H_ */
