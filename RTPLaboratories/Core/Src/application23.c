@@ -72,8 +72,8 @@ static void prvSRand( uint32_t ulSeed )
 static void vSyncingTask1( void *pvParameters )
 {
 const EventBits_t uxAllSyncBits = ( mainFIRST_TASK_BIT | mainSECOND_TASK_BIT | mainTHIRD_TASK_BIT );
-const TickType_t xMaxDelay = pdMS_TO_TICKS( 4000UL );
-const TickType_t xMinDelay = pdMS_TO_TICKS( 200UL );
+const TickType_t xMaxDelay = pdMS_TO_TICKS( 100UL );
+const TickType_t xMinDelay = pdMS_TO_TICKS( 50UL );
 TickType_t xDelayTime;
 EventBits_t uxThisTasksSyncBit;
 
@@ -128,8 +128,8 @@ EventBits_t uxThisTasksSyncBit;
 static void vSyncingTask2( void *pvParameters )
 {
 const EventBits_t uxAllSyncBits = ( mainFIRST_TASK_BIT | mainSECOND_TASK_BIT | mainTHIRD_TASK_BIT );
-const TickType_t xMaxDelay = pdMS_TO_TICKS( 4000UL );
-const TickType_t xMinDelay = pdMS_TO_TICKS( 200UL );
+const TickType_t xMaxDelay = pdMS_TO_TICKS( 100UL );
+const TickType_t xMinDelay = pdMS_TO_TICKS( 50UL );
 TickType_t xDelayTime;
 EventBits_t uxThisTasksSyncBit;
 
@@ -184,8 +184,8 @@ EventBits_t uxThisTasksSyncBit;
 static void vSyncingTask3( void *pvParameters )
 {
 const EventBits_t uxAllSyncBits = ( mainFIRST_TASK_BIT | mainSECOND_TASK_BIT | mainTHIRD_TASK_BIT );
-const TickType_t xMaxDelay = pdMS_TO_TICKS( 4000UL );
-const TickType_t xMinDelay = pdMS_TO_TICKS( 200UL );
+const TickType_t xMaxDelay = pdMS_TO_TICKS( 100UL );
+const TickType_t xMinDelay = pdMS_TO_TICKS( 50UL );
 TickType_t xDelayTime;
 EventBits_t uxThisTasksSyncBit;
 
@@ -239,6 +239,7 @@ EventBits_t uxThisTasksSyncBit;
 
 inline void application23(void)
 {
+	BaseType_t xReturned1, xReturned2, xReturned3;
 	/* The tasks created in this example block for a random time.  The block
 	time is generated using rand() - seed the random number generator. */
 	prvSRand( (uint32_t)rand );
@@ -250,8 +251,9 @@ inline void application23(void)
 	which is later printed out to give a visual indication of which task is
 	executing.  The event bit to use when the task reaches its synchronization
 	point is passed into the task using the task parameter. */
-	xTaskCreate( vSyncingTask1, "Task 1", 1000, ( void * ) mainFIRST_TASK_BIT, 1, NULL );
-	xTaskCreate( vSyncingTask2, "Task 2", 1000, ( void * ) mainSECOND_TASK_BIT, 1, NULL );
-	xTaskCreate( vSyncingTask3, "Task 3", 1000, ( void * ) mainTHIRD_TASK_BIT, 1, NULL );
-
+	xReturned1=xTaskCreate( vSyncingTask1, "Task 1", 128, ( void * ) mainFIRST_TASK_BIT, 1, NULL );
+	xReturned2=xTaskCreate( vSyncingTask2, "Task 2", 128, ( void * ) mainSECOND_TASK_BIT, 1, NULL );
+	xReturned3=xTaskCreate( vSyncingTask3, "Task 3", 128, ( void * ) mainTHIRD_TASK_BIT, 1, NULL );
+	if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+					vTaskStartScheduler();
 }

@@ -162,18 +162,20 @@ const TickType_t xDelay200ms = pdMS_TO_TICKS( 200UL );
 
 inline void application22(void)
 {
+	BaseType_t xReturned1, xReturned2, xReturned3;
 	/* Before an event group can be used it must first be created. */
 	xEventGroup = xEventGroupCreate();
 
 	/* Create the task that sets event bits in the event group. */
-	xTaskCreate( vEventBitSettingTask, "BitSetter", 1000, NULL, 1, NULL );
+	xReturned1=xTaskCreate( vEventBitSettingTask, "BitSetter", 128, NULL, 1, NULL );
 
 	/* Create the task that waits for event bits to get set in the event
 	group. */
-	xTaskCreate( vEventBitReadingTask, "BitReader", 1000, NULL, 2, NULL );
+	xReturned2=xTaskCreate( vEventBitReadingTask, "BitReader", 128, NULL, 2, NULL );
 
 	/* Create the task that is used to periodically generate a software
 	interrupt. */
-	xTaskCreate( vIntegerGenerator, "IntGen", 1000, NULL, 3, NULL );
-
+	xReturned3=xTaskCreate( vIntegerGenerator, "IntGen", 128, NULL, 3, NULL );
+	if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+				vTaskStartScheduler();
 }

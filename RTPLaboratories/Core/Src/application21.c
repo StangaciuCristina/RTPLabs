@@ -19,7 +19,7 @@
 gatekeeper. */
 static const int Delays[] =
 {
-	1000,100,10
+	100,50,10
 };
 
 unsigned int rand (void)
@@ -97,7 +97,7 @@ int iIndexToString;
 
 	for( ;; )
 	{
-		/* Print out the string, not directly but by passing the string to the
+		/* Pass the string to the
 		gatekeeper task on the queue.  The queue is created before the scheduler is
 		started so will already exist by the time this task executes.  A block time
 		is not specified as there should always be space in the queue. */
@@ -165,6 +165,7 @@ void vApplicationMallocFailedHook( void )
 
 inline void application21(void)
 {
+	BaseType_t xReturned1, xReturned2, xReturned3;
 	/* Before a queue is used it must be explicitly created.  The queue is created
 	to hold a maximum of 5 character pointers. */
 	xPrintQueue = xQueueCreate( 5, sizeof( char * ) );
@@ -173,15 +174,14 @@ inline void application21(void)
 	if( xPrintQueue != NULL )
 	{
 		/* Create two instances of the tasks that send messages to the gatekeeper.
-		The	index to the string they attempt to write is passed in as the task
-		parameter (4th parameter to xTaskCreate()).  The tasks are created at
-		different priorities so some pre-emption will occur. */
-		xTaskCreate( prvPrintTask, "Print1", 1000, ( void * ) 0, 1, NULL );
-		xTaskCreate( prvPrintTask, "Print2", 1000, ( void * ) 1, 2, NULL );
+		The tasks are created at different priorities so some pre-emption will occur. */
+		xReturned1=xTaskCreate( prvPrintTask, "Task1", 128, ( void * ) 0, 1, NULL );
+		xReturned2=xTaskCreate( prvPrintTask, "Task2", 128, ( void * ) 1, 2, NULL );
 
 		/* Create the gatekeeper task.  This is the only task that is permitted
 		to access standard out. */
-		xTaskCreate( prvStdioGatekeeperTask, "Gatekeeper", 1000, NULL, 0, NULL );
+		xReturned3=xTaskCreate( prvStdioGatekeeperTask, "Gatekeeper", 1000, NULL, 0, NULL );
 	}
-
+	if((xReturned1==pdPASS)&&(xReturned2==pdPASS)&&(xReturned3==pdPASS))
+			vTaskStartScheduler();
 }

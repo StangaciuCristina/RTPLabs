@@ -22,7 +22,7 @@
 #define mainTHIRD_TASK_BIT	( 1UL << 2UL ) /* Event bit 2, which is set by the third task. */
 
 /* The rate at which the periodic task generates software interrupts. */
-static const TickType_t xInterruptFrequency = pdMS_TO_TICKS( 500UL );
+static const TickType_t xInterruptFrequency = pdMS_TO_TICKS( 50UL );
 
 /* Stores the handle of the task to which interrupt processing is deferred. */
 static TaskHandle_t xHandlerTask = NULL;
@@ -109,18 +109,21 @@ void EXTI0_IRQHandler(void)
 
 inline void application25(void)
 {
+	BaseType_t xReturned1, xReturned2;
 	/* Create the 'handler' task, which is the task to which interrupt
 	processing is deferred, and so is the task that will be synchronized
 	with the interrupt.  The handler task is created with a high priority to
 	ensure it runs immediately after the interrupt exits.  In this case a
 	priority of 3 is chosen.  The handle of the task is saved for use by the
 	ISR. */
-	xTaskCreate( vHandlerTask, "Handler", 1000, NULL, 3, &xHandlerTask );
+	xReturned1=xTaskCreate( vHandlerTask, "Handler", 1000, NULL, 3, &xHandlerTask );
 
 	/* Create the task that will periodically generate a software interrupt.
 	This is created with a priority below the handler task to ensure it will
 	get preempted each time the handler task exits the Blocked state. */
-	xTaskCreate( vPeriodicTask, "Periodic", 1000, NULL, 1, NULL );
+	xReturned2=xTaskCreate( vPeriodicTask, "Periodic", 1000, NULL, 1, NULL );
+	if((xReturned1==pdPASS)&&(xReturned2==pdPASS))
+		vTaskStartScheduler();
 
 
 }

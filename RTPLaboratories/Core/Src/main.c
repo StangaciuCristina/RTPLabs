@@ -136,7 +136,7 @@ int main(void)
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */
-  vTaskStartScheduler();
+  //vTaskStartScheduler(); //if commented out, then the scheduler must be started from the application function
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
