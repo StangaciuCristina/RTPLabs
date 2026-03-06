@@ -72,14 +72,7 @@ static void vPeriodicTask( void *pvParameters )
 		is time to generate the software interrupt again. */
 		vTaskDelay( xInterruptFrequency );
 
-		/* Generate the interrupt, printing a message both before and after
-		the interrupt has been generated so the sequence of execution is evident
-		from the output.
-
-		The syntax used to generate a software interrupt is dependent on the
-		FreeRTOS port being used.  The syntax used below can only be used with
-		the FreeRTOS Windows port, in which such interrupts are only
-		simulated. */
+		/* Toggle LED */
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 	}
 }

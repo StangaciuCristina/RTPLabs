@@ -56,16 +56,7 @@ static void vSenderTask( void *pvParameters )
 	/* As per most tasks, this task is implemented within an infinite loop. */
 	for( ;; )
 	{
-		/* The first parameter is the queue to which data is being sent.  The
-		queue was created before the scheduler was started, so before this task
-		started to execute.
-
-		The second parameter is the address of the data to be sent.
-
-		The third parameter is the Block time – the time the task should be kept
-		in the Blocked state to wait for space to become available on the queue
-		should the queue already be full.  In this case we don’t specify a block
-		time because there should always be space in the queue. */
+		/*The data represents the LED to blink and the sender ID*/
 		xQueueSendToBack( xQueue, pvParameters, xTicksToWait );
 
 
@@ -84,18 +75,7 @@ static void vReceiverTask( void *pvParameters )
 	{
 		uxQueueMessagesWaiting( xQueue );
 
-		/* The first parameter is the queue from which data is to be received.  The
-		queue is created before the scheduler is started, and therefore before this
-		task runs for the first time.
-
-		The second parameter is the buffer into which the received data will be
-		placed.  In this case the buffer is simply the address of a variable that
-		has the required size to hold the received structure.
-
-		The last parameter is the block time - the maximum amount of time that the
-		task should remain in the Blocked state to wait for data to be available
-		should the queue already be empty.  A block time is not necessary as this
-		task will only run when the queue is full so data will always be available. */
+		/*The data represents the LED to blink*/
 		xStatus = xQueueReceive( xQueue, &xReceivedStructure, 0 );
 
 		if( xStatus == pdPASS )

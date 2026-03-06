@@ -17,11 +17,10 @@
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
 
 /* Declare a variable of type SemaphoreHandle_t.  This is used to reference the
-mutex type semaphore that is used to ensure mutual exclusive access to stdout. */
+mutex type semaphore that is used to ensure mutual exclusive access to RED LED. */
 SemaphoreHandle_t xMutex;
 SemaphoreHandle_t xBinarySemaphore;
 
-/* The tasks block for a pseudo random time between 0 and xMaxBlockTime ticks. */
 const TickType_t xMaxBlockTimeTicks = 0x20;
 
 TickType_t delay1=mainDELAY_LOOP_COUNT, delay2=mainDELAY_LOOP_COUNT/5, delay3=mainDELAY_LOOP_COUNT/10;
@@ -31,20 +30,19 @@ static void prvBlinkLED( void *pvParameters )
 	uint32_t *delay;
 	const TickType_t xDelay = pdMS_TO_TICKS( 500 );
 
-	/* Two instances of this task are created.  The string printed by the task
-	is passed into the task using the task's parameter.  The parameter is cast
+	/* Two instances of this task are created.  The parameter is cast
 	to the required type. */
 	delay = ( uint32_t * ) pvParameters;
 
 	uint32_t cnt,ul;
 	for( ;; )
 	{
-		/* Print out the string using the newly defined function. */
+
 		xSemaphoreTake( xMutex, portMAX_DELAY );
-			//xSemaphoreTake( xBinarySemaphore, portMAX_DELAY );
+		//xSemaphoreTake( xBinarySemaphore, portMAX_DELAY );
 			{
 				/* The following line will only execute once the semaphore has been
-				successfully obtained - so standard out can be accessed freely. */
+				successfully obtained */
 				for (cnt=0; cnt<10 ;cnt++)
 				{
 					HAL_GPIO_TogglePin(GPIOD, RED_LED);
@@ -58,14 +56,10 @@ static void prvBlinkLED( void *pvParameters )
 			xSemaphoreGive( xMutex );
 			//xSemaphoreGive( xBinarySemaphore );
 
-		/* Wait a pseudo random time.  Note that rand() is not necessarily
-		re-entrant, but in this case it does not really matter as the code does
-		not care what value is returned.  In a more secure application a version
-		of rand() that is known to be re-entrant should be used - or calls to
-		rand() should be protected using a critical section. */
+		/* Wait a pseudo random time. */
 		vTaskDelay( rand() % xMaxBlockTimeTicks );
 
-		/* Just to ensure the scrolling is not too fast! */
+		/* Just to ensure the blinking is not too fast! */
 		vTaskDelay( xDelay );
 	}
 }
@@ -78,8 +72,7 @@ static void prvBlinkLEDM( void *pvParameters )
 	volatile uint8_t i;
 	volatile uint32_t ul;
 
-	/* Two instances of this task are created.  The string printed by the task
-	is passed into the task using the task's parameter.  The parameter is cast
+	/* Two instances of this task are created.   The parameter is cast
 	to the required type. */
 	delay = ( uint32_t * ) pvParameters;
 	//start the medium priority task after the low priority task

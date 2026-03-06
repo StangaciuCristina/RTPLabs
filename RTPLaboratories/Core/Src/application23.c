@@ -30,29 +30,12 @@ static uint32_t ulNextRand;
 /* Declare the event group used to synchronize the three tasks. */
 EventGroupHandle_t xEventGroup;
 
-unsigned int rand (void)
-{
-   static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
-   unsigned int b;
-   b  = ((z1 << 6) ^ z1) >> 13;
-   z1 = ((z1 & 4294967294U) << 18) ^ b;
-   b  = ((z2 << 2) ^ z2) >> 27;
-   z2 = ((z2 & 4294967288U) << 2) ^ b;
-   b  = ((z3 << 13) ^ z3) >> 21;
-   z3 = ((z3 & 4294967280U) << 7) ^ b;
-   b  = ((z4 << 3) ^ z4) >> 12;
-   z4 = ((z4 & 4294967168U) << 13) ^ b;
-   return (z1 ^ z2 ^ z3 ^ z4);
-}
-
-
 static uint32_t prvRand( void )
 {
-const uint32_t ulMultiplier = 0x015a4e35UL, ulIncrement = 1UL;
-uint32_t ulReturn;
+	const uint32_t ulMultiplier = 0x015a4e35UL, ulIncrement = 1UL;
+	uint32_t ulReturn;
 
-	/* Utility function to generate a pseudo random number as the MSVC rand()
-	function has unexpected consequences. */
+	/* Utility function to generate a pseudo random number */
 	taskENTER_CRITICAL();
 		ulNextRand = ( ulMultiplier * ulNextRand ) + ulIncrement;
 		ulReturn = ( ulNextRand >> 16UL ) & 0x7fffUL;
@@ -92,10 +75,7 @@ EventBits_t uxThisTasksSyncBit;
 		xDelayTime = ( prvRand() % xMaxDelay ) + xMinDelay;
 		vTaskDelay( xDelayTime );
 
-		/* Print out a message to show this task has reached its synchronization
-		point.  pcTaskGetTaskName() is an API function that returns the name
-		assigned to the task when the task was created. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "reached sync point" );
+		/* Toggle the RED LED */
 		HAL_GPIO_TogglePin(GPIOD, RED_LED);
 
 		/* Wait for all the tasks to have reached their respective
@@ -115,11 +95,6 @@ EventBits_t uxThisTasksSyncBit;
 						 synchronization point. */
 						 portMAX_DELAY );
 
-		/* Print out a message to show this task has passed its synchronization
-		point.  As an indefinite delay was used the following line will only be
-		reached after all the tasks reached their respective synchronization
-		points. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "exited sync point" );
 		HAL_GPIO_TogglePin(GPIOD, RED_LED);
 	}
 }
@@ -148,10 +123,8 @@ EventBits_t uxThisTasksSyncBit;
 		xDelayTime = ( prvRand() % xMaxDelay ) + xMinDelay;
 		vTaskDelay( xDelayTime );
 
-		/* Print out a message to show this task has reached its synchronization
-		point.  pcTaskGetTaskName() is an API function that returns the name
-		assigned to the task when the task was created. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "reached sync point" );
+		/*Toggle LED to show this task has reached its synchronization
+		point.  */
 		HAL_GPIO_TogglePin(GPIOD, BLUE_LED);
 
 		/* Wait for all the tasks to have reached their respective
@@ -171,11 +144,9 @@ EventBits_t uxThisTasksSyncBit;
 						 synchronization point. */
 						 portMAX_DELAY );
 
-		/* Print out a message to show this task has passed its synchronization
-		point.  As an indefinite delay was used the following line will only be
-		reached after all the tasks reached their respective synchronization
-		points. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "exited sync point" );
+		/* Toggle LED to show this task has passed its synchronization
+		point.   */
+
 		HAL_GPIO_TogglePin(GPIOD, BLUE_LED);
 	}
 }
@@ -204,10 +175,8 @@ EventBits_t uxThisTasksSyncBit;
 		xDelayTime = ( prvRand() % xMaxDelay ) + xMinDelay;
 		vTaskDelay( xDelayTime );
 
-		/* Print out a message to show this task has reached its synchronization
-		point.  pcTaskGetTaskName() is an API function that returns the name
-		assigned to the task when the task was created. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "reached sync point" );
+		/* Toggle LED to show this task has reached its synchronization
+		point. */
 		HAL_GPIO_TogglePin(GPIOD, ORANGE_LED);
 
 		/* Wait for all the tasks to have reached their respective
@@ -227,11 +196,8 @@ EventBits_t uxThisTasksSyncBit;
 						 synchronization point. */
 						 portMAX_DELAY );
 
-		/* Print out a message to show this task has passed its synchronization
-		point.  As an indefinite delay was used the following line will only be
-		reached after all the tasks reached their respective synchronization
-		points. */
-		//vPrintTwoStrings( pcTaskGetTaskName( NULL ), "exited sync point" );
+		/* Toggle LED to show this task has passed its synchronization
+		point. */
 		HAL_GPIO_TogglePin(GPIOD, ORANGE_LED);
 	}
 }
@@ -247,9 +213,7 @@ inline void application23(void)
 	/* Before an event group can be used it must first be created. */
 	xEventGroup = xEventGroupCreate();
 
-	/* Create three instances of the task.  Each task is given a different name,
-	which is later printed out to give a visual indication of which task is
-	executing.  The event bit to use when the task reaches its synchronization
+	/* Create three instances of the task. The event bit to use when the task reaches its synchronization
 	point is passed into the task using the task parameter. */
 	xReturned1=xTaskCreate( vSyncingTask1, "Task 1", 128, ( void * ) mainFIRST_TASK_BIT, 1, NULL );
 	xReturned2=xTaskCreate( vSyncingTask2, "Task 2", 128, ( void * ) mainSECOND_TASK_BIT, 1, NULL );

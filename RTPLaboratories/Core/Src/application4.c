@@ -13,8 +13,7 @@ void vTaskFunction( void *pvParameters )
 {
 	uint16_t *LED;
 	const TickType_t xDelay250ms = pdMS_TO_TICKS( 250UL );
-	/* The string to print out is passed in via the parameter.  Cast this to a
-	character pointer. */
+	/* The LED to toggle */
 	LED = ( uint16_t  * ) pvParameters;
 
 	/* As per most tasks, this task is implemented in an infinite loop. */

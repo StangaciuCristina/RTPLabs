@@ -60,7 +60,7 @@ BaseType_t i;
 	for( ;; )
 	{
 		/* This is a periodic task.  Block until it is time to run again.
-		The task will execute every 200ms. */
+		The task will execute every xDelay. */
 		vTaskDelayUntil( &xLastExecutionTime, xDelay );
 
 		/* Send five numbers to the queue, each value one higher than the
@@ -106,8 +106,7 @@ void EXTI0_IRQHandler(void)
   while( xQueueReceiveFromISR( xIntegerQueue, &ulReceivedNumber, &xHigherPriorityTaskWoken ) != errQUEUE_EMPTY )
   {
   	/* Truncate the received value to the last two bits (values 0 to 3
-  	inc.), then use the truncated value as an index into the pcStrings[]
-  	array to select a string (char *) to send on the other queue. */
+  	inc.), then use the truncated value as an index to send on the other queue. */
   	ulReceivedNumber &= 0x03;
   	xQueueSendToBackFromISR( xStringQueue, &tab[ ulReceivedNumber ], &xHigherPriorityTaskWoken );
   }

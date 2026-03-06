@@ -29,7 +29,7 @@ void vTaskFunction( void *pvParameters )
 
 		/* We want this task to execute exactly every 250 milliseconds. */
 		vTaskDelayUntil(&xLastWakeTime,xDelay250ms );
-		//osDelayUntil(&xLastWakeTime, 250UL);
+
 	}
 }
 

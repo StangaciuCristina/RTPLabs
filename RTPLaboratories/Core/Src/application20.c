@@ -4,6 +4,7 @@
 #include "timers.h"
 #include "semphr.h"
 #include "stm32f4xx_it.h"
+#include <stdlib.h>
 
 /* Used as a loop counter to create a very crude delay. */
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
@@ -16,28 +17,14 @@
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
 
 /* Declare a variable of type SemaphoreHandle_t.  This is used to reference the
-mutex type semaphore that is used to ensure mutual exclusive access to stdout. */
+mutex type semaphore that is used to ensure mutual exclusive access to the RED LED. */
 SemaphoreHandle_t xMutex;
 
-/* The tasks block for a pseudo random time between 0 and xMaxBlockTime ticks. */
+
 const TickType_t xMaxBlockTimeTicks = 0x20;
 
 TickType_t delay1=mainDELAY_LOOP_COUNT, delay2=mainDELAY_LOOP_COUNT/10;
 
-unsigned int rand (void)
-{
-   static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
-   unsigned int b;
-   b  = ((z1 << 6) ^ z1) >> 13;
-   z1 = ((z1 & 4294967294U) << 18) ^ b;
-   b  = ((z2 << 2) ^ z2) >> 27;
-   z2 = ((z2 & 4294967288U) << 2) ^ b;
-   b  = ((z3 << 13) ^ z3) >> 21;
-   z3 = ((z3 & 4294967280U) << 7) ^ b;
-   b  = ((z4 << 3) ^ z4) >> 12;
-   z4 = ((z4 & 4294967168U) << 13) ^ b;
-   return (z1 ^ z2 ^ z3 ^ z4);
-}
 
 static void prvBlinky( uint32_t *delay )
 {
@@ -51,11 +38,11 @@ static void prvBlinky( uint32_t *delay )
 	the semaphore has been successfully obtained so there is no need to check the
 	return value.  If any other delay period was used then the code must check
 	that xSemaphoreTake() returns pdTRUE before accessing the resource (in this
-	case standard out. */
+	case the RED LED. */
 	xSemaphoreTake( xMutex, portMAX_DELAY );
 	{
 		/* The following line will only execute once the semaphore has been
-		successfully obtained - so standard out can be accessed freely. */
+		successfully obtained. */
 
 		for (i=0; i<10 ;i++)
 		{

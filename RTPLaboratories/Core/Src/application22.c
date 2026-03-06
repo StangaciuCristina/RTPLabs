@@ -48,7 +48,7 @@ for( ;; )
 											/* Don't time out. */
 											portMAX_DELAY );
 
-	/* Print a message for each bit that was set. */
+	/* Toggle the LED for each bit that was set. */
 	if( ( xEventGroupValue & mainFIRST_TASK_BIT ) != 0 )
 	{
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
@@ -69,9 +69,10 @@ for( ;; )
 }
 /*-----------------------------------------------------------*/
 
-void vPrintStringFromDaemonTask( void *pvParameter1, uint32_t ulParameter2 )
+void vToggleLEDFromDaemonTask( void *pvParameter1, uint32_t ulParameter2 )
 {
-	HAL_GPIO_TogglePin(GPIOD, ORANGE_LED);
+	uint16_t *LED=(uint16_t*)pvParameter1;
+	HAL_GPIO_TogglePin(GPIOD, *LED);
 }
 /*-----------------------------------------------------------*/
 
@@ -97,21 +98,19 @@ const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 void EXTI0_IRQHandler(void)
 {
 	BaseType_t xHigherPriorityTaskWoken;
-	/* The string is not printed within the interrupt service, but is instead
-	sent to the RTOS daemon task for printing.  It is therefore declared static to
+	/* The LED is not toggled from the interrupt service, but is instead
+	sent to the RTOS daemon task.  It is therefore declared static to
 	ensure the compiler does not allocate the string on the stack of the ISR (as the
 	ISR's stack frame will not exist when the string is printed from the daemon
 	task. */
 
-	static const char *pcString = "Bit setting ISR -\t about to set bit 2.\r\n";
+	static uint16_t param = ORANGE_LED;
 
 	/* As always, xHigherPriorityTaskWoken is initialized to pdFALSE. */
 	xHigherPriorityTaskWoken = pdFALSE;
 
-	/* Print out a message to say bit 2 is about to be set.  Messages cannot be
-	printed from an ISR, so defer the actual output to the RTOS daemon task by
-	pending a function call to run in the context of the RTOS daemon task. */
-	xTimerPendFunctionCallFromISR( vPrintStringFromDaemonTask, ( void * ) pcString, 0, &xHigherPriorityTaskWoken );
+
+	xTimerPendFunctionCallFromISR( vToggleLEDFromDaemonTask, &param, 0, &xHigherPriorityTaskWoken );
 
 	/* Set bit 2 in the event group. */
 	xEventGroupSetBitsFromISR( xEventGroup, mainISR_BIT, &xHigherPriorityTaskWoken );

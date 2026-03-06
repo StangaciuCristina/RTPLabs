@@ -32,7 +32,6 @@ void vTaskFunction(void *pvParameters)
 				pdMS_TO_TICKS() macro is used to convert this to milliseconds.
 				xLastWakeTime is automatically updated within vTaskDelayUntil() so does not
 				have to be updated by this task code. */
-		//osDelayUntil(&xLastWakeTime, 250UL);
 		vTaskDelayUntil(&xLastWakeTime,xDelay250ms);
 		/*		in CMSIS-OS API, vTaskDelayUntil is wrapped to osDelayUntil, the diference is that the second parameter is in ms*/
 	}

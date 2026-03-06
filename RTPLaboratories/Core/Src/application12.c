@@ -40,8 +40,7 @@ uint16_t led1= GREEN_LED;
 		/* Block for 100ms. */
 		vTaskDelay( xBlockTime );
 
-		/* Send this task's string to xQueue1. It is not necessary to use a
-		block time, even though the queue can only hold one item.  This is
+		/* It is not necessary to use a block time, even though the queue can only hold one item.  This is
 		because the priority of the task that reads from the queue is higher
 		than the priority of this task; as soon as this task writes to the queue
 		it will be pre-empted by the task that reads from the queue, so the
@@ -63,8 +62,7 @@ uint16_t led2= BLUE_LED;
 		/* Block for 200ms. */
 		vTaskDelay( xBlockTime );
 
-		/* Send this task's string to xQueue1. It is not necessary to use a
-		block time, even though the queue can only hold one item.  This is
+		/* It is not necessary to use a block time, even though the queue can only hold one item.  This is
 		because the priority of the task that reads from the queue is higher
 		than the priority of this task; as soon as this task writes to the queue
 		it will be pre-empted by the task that reads from the queue, so the
@@ -96,7 +94,7 @@ static void vReceiverTask( void *pvParameters )
 			is known that the queue contains data.  The block time is set to 0. */
 			xQueueReceive( xQueueThatContainsData, &ReceivedLedNumber, 0 );
 
-			/* Print the string received from the queue. */
+			/* Toggle the LED specified by the received parameter. */
 			HAL_GPIO_TogglePin(GPIOD, ReceivedLedNumber);
 		}
 }

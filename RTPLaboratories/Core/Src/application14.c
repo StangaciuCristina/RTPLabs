@@ -30,8 +30,6 @@ uint32_t ulExecutionCount;
 	ulExecutionCount++;
 	vTimerSetTimerID( xTimer, ( void * ) ulExecutionCount );
 
-	/* Obtain the current tick count. */
-	//xTimeNow = xTaskGetTickCount();
 
     /* The handle of the one-shot timer was stored in xOneShotTimer when the
 	timer was created.  Compare the handle passed into this function with
@@ -52,7 +50,7 @@ uint32_t ulExecutionCount;
 
 		if( ulExecutionCount == 100 )
 		{
-			/* Stop the auto-reload timer after it has executed 5 times.  This
+			/* Stop the auto-reload timer after it has executed a number of times.  This
 			callback function executes in the context of the RTOS daemon task so
 			must not call any functions that might place the daemon task into
 			the Blocked state.  Therefore a block time of 0 is used. */

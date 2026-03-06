@@ -17,10 +17,6 @@
 
 static void prvOneShotTimerCallback( TimerHandle_t xTimer )
 {
-//static TickType_t xTimeNow;
-
-	/* Obtain the current tick count. */
-	//xTimeNow = xTaskGetTickCount();
 
 	//the LED will be only turned on, as this function will execute only once
 	HAL_GPIO_TogglePin(GPIOD, RED_LED);
@@ -29,11 +25,6 @@ static void prvOneShotTimerCallback( TimerHandle_t xTimer )
 
 static void prvAutoReloadTimerCallback( TimerHandle_t xTimer )
 {
-//static TickType_t xTimeNow;
-
-	/* Obtain the current tick count. */
-	//xTimeNow = xTaskGetTickCount();
-
 	//toggle LED
 	HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
 }

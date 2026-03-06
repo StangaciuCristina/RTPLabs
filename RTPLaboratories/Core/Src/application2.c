@@ -14,8 +14,7 @@ void vTaskFunction( void *pvParameters )
 uint16_t *LED;
 volatile uint32_t ul;
 
-	/* The string to print out is passed in via the parameter.  Cast this to a
-	character pointer. */
+	/* The LED to be toggled */
 	LED = ( uint16_t  * ) pvParameters;
 
 	/* As per most tasks, this task is implemented in an infinite loop. */

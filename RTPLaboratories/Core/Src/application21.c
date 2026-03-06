@@ -4,6 +4,7 @@
 #include "timers.h"
 #include "semphr.h"
 #include "stm32f4xx_it.h"
+#include <stdlib.h>
 
 /* Used as a loop counter to create a very crude delay. */
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
@@ -22,26 +23,10 @@ static const int Delays[] =
 	100,50,10
 };
 
-unsigned int rand (void)
-{
-   static unsigned int z1 = 12345, z2 = 12345, z3 = 12345, z4 = 12345;
-   unsigned int b;
-   b  = ((z1 << 6) ^ z1) >> 13;
-   z1 = ((z1 & 4294967294U) << 18) ^ b;
-   b  = ((z2 << 2) ^ z2) >> 27;
-   z2 = ((z2 & 4294967288U) << 2) ^ b;
-   b  = ((z3 << 13) ^ z3) >> 21;
-   z3 = ((z3 & 4294967280U) << 7) ^ b;
-   b  = ((z4 << 3) ^ z4) >> 12;
-   z4 = ((z4 & 4294967168U) << 13) ^ b;
-   return (z1 ^ z2 ^ z3 ^ z4);
-}
-
 /* Declare a variable of type QueueHandle_t.  This is used to send messages from
 the print tasks to the gatekeeper task. */
 static QueueHandle_t xPrintQueue;
 
-/* The tasks block for a pseudo random time between 0 and xMaxBlockTime ticks. */
 const TickType_t xMaxBlockTimeTicks = 0x20;
 
 static void prvStdioGatekeeperTask( void *pvParameters )
@@ -70,8 +55,7 @@ void vApplicationTickHook( void )
 {
 static int iCount = 0;
 
-	/* Print out a message every 200 ticks.  The message is not written out
-	directly, but sent to the gatekeeper task. */
+	/* Blink the LED 200 ticks.  The LED is not blinked directly, but sent to the gatekeeper task. */
 	iCount++;
 	if( iCount >= 200 )
 	{
@@ -97,27 +81,20 @@ int iIndexToString;
 
 	for( ;; )
 	{
-		/* Pass the string to the
+		/* Pass the parameter to the
 		gatekeeper task on the queue.  The queue is created before the scheduler is
 		started so will already exist by the time this task executes.  A block time
 		is not specified as there should always be space in the queue. */
 		xQueueSendToBack( xPrintQueue, &( Delays[ iIndexToString ] ), 0 );
 		HAL_GPIO_TogglePin(GPIOD, GREEN_LED);
-		/* Wait a pseudo random time.  Note that rand() is not necessarily
-		re-entrant, but in this case it does not really matter as the code does
-		not care what value is returned.  In a more secure application a version
-		of rand() that is known to be re-entrant should be used - or calls to
-		rand() should be protected using a critical section. */
+		/* Wait a pseudo random time. */
 		vTaskDelay( ( rand() % xMaxBlockTimeTicks ) );
 	}
 }
 /*-----------------------------------------------------------*/
 
 
-/* In other examples this function is implemented within the
-supporting_functions.c source file - but that source file is not included in
-this example as to include it would result in multiple definitions of the tick
-hook function. */
+
 void vAssertCalled( uint32_t ulLine, const char * const pcFile )
 {
 /* The following two variables are just to ensure the parameters are not
