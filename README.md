@@ -1,0 +1,1 @@
+This project contains laboratory execises based on the official FreeRTOS documentation https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book and ported on STM32F4DISCOVERY board
