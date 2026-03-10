@@ -16,7 +16,7 @@
 /* Used as a loop counter to create a very crude delay. */
 #define mainDELAY_LOOP_COUNT		( 0xffffff )
 
-/* Define the strings that the tasks and interrupt will print out via the
+/* Define the delays for blinking the LED
 gatekeeper. */
 static const int Delays[] =
 {
@@ -33,10 +33,8 @@ static void prvStdioGatekeeperTask( void *pvParameters )
 {
 int *delay;
 
-	/* This is the only task that is allowed to write to the terminal output.
-	Any other task wanting to write to the output does not access the terminal
-	directly, but instead sends the output to this task.  As only one task
-	writes to standard out there are no mutual exclusion or serialization issues
+	/* T As only one task
+	blinks the LED there are no mutual exclusion or serialization issues
 	to consider within this task itself. */
 	for( ;; )
 	{

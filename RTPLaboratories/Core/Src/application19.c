@@ -141,7 +141,7 @@ inline void application19(void)
 
 	/* Create the task that prints out the strings sent to it from the interrupt
 	service routine.  The task is created at the higher priority of 2. */
-	xReturned2=xTaskCreate( Blinky, "String", 128, NULL, 2, NULL );
+	xReturned2=xTaskCreate( Blinky, "Blinky", 128, NULL, 2, NULL );
 	if ((xReturned1==pdPASS)&&(xReturned2==pdPASS))
 			vTaskStartScheduler();
 }
